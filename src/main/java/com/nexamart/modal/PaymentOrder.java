@@ -1,15 +1,17 @@
 package com.nexamart.modal;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nexamart.domain.PaymentMethod;
+import com.nexamart.domain.PaymentOrderStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,29 +24,24 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class CartItem {
+public class PaymentOrder {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne
-	@JsonIgnore
-	private Cart cart;
+	private Long amount;
+	
+	private PaymentOrderStatus status = PaymentOrderStatus.PENDING;
+	
+	private PaymentMethod paymentMethod;
+	
+	private String paymentLinkId;
 	
 	@ManyToOne
-	private Product product;
+	private User user;
 	
-	private String size;
-	
-	private int quantity = 1;
-	
-	private Integer mrpPrice;
-	
-	private Integer sellingPrice;
-	
-	private long userId;
-	
-	
+	@OneToMany
+	private Set<Order> orders = new HashSet<>();
 
 }

@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,7 +23,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 public class Product {
 
 	@Id
@@ -58,7 +58,8 @@ public class Product {
 
 	// @ElementCollection
 	private String size;
-
+	
+	@OneToMany(mappedBy = "product")
 	private List<Review> reviews = new ArrayList<>();
 
 }
